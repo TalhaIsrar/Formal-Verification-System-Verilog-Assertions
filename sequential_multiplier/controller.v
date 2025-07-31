@@ -33,7 +33,7 @@ module controller(
         case (state)
             READY:  next_state = (start) ? CHECK : READY;
             CHECK: next_state = ADD_SHIFT;
-            ADD_SHIFT:  next_state = (count == 3) ? READY : CHECK;
+            ADD_SHIFT:  next_state = (count == 7) ? READY : CHECK;
             default: next_state = READY;
         endcase
     end
