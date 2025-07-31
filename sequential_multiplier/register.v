@@ -10,7 +10,7 @@ module register #(
     input [SIZE-1 : 0] data_in,
 
     output reg [SIZE-1 : 0] data_out 
-)
+);
 
     // Load and shift register
     always @(posedge clk) begin

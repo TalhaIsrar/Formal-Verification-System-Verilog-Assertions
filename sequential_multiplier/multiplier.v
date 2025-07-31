@@ -8,9 +8,9 @@ module multiplier(
     
     output [7:0] product,
     output ready
-)
+);
 
-    reg [3:0] internal_m, internal_q;
+    wire [3:0] internal_m, internal_q;
     wire [4:0] sum, accumulator_result;
 
     wire shift, add, init;
@@ -38,7 +38,7 @@ module multiplier(
         .clk(clk),
         .rst(rst),
         .shift(1'b0),
-        .load(init)
+        .load(init),
         .clear(1'b0),
         .serial_in(1'b0),
         .data_in(multiplicand),
@@ -50,7 +50,7 @@ module multiplier(
         .clk(clk),
         .rst(rst),
         .shift(shift),
-        .load(init)
+        .load(init),
         .clear(1'b0),
         .serial_in(serial_input),
         .data_in(multiplier),
@@ -62,7 +62,7 @@ module multiplier(
         .clk(clk),
         .rst(rst),
         .shift(shift),
-        .load(add)
+        .load(add),
         .clear(init),
         .serial_in(1'b0),
         .data_in(sum),

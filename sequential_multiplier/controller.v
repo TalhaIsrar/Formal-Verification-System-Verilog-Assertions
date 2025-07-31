@@ -4,11 +4,11 @@ module controller(
     input start,
     input msb_multiplier,
 
-    output shift,
-    output add,
-    output init,
-    output ready
-)
+    output reg shift,
+    output reg add,
+    output reg init,
+    output reg ready
+);
 
     // State encoding using parameters
     parameter READY = 2'b00,
@@ -64,7 +64,7 @@ module controller(
                 shift = 1'b1;
                 add = (msb_multiplier) ? 1'b1 : 1'b0;
             end
-            DONE: begin
+            ADD_SHIFT: begin
                 shift = 1'b0;
                 add = 1'b0;
             end
