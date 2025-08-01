@@ -1,0 +1,43 @@
+module multiplier_sva_property_suite(clk, rst, multiplier, multiplicand, product, ready, start);
+
+    // Inputs
+    input clk;
+    input rst;
+    input [3:0] multiplier;
+    input [3:0] multiplicand;
+    input [7:0] product;
+    input ready;
+    input start;
+
+    reg [3:0] multiplier_frozen;
+    reg [3:0] multiplicand_frozen;
+
+    // Values are forzen after start because it takes some cycles to evaluate product and value might change inbetween
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            multiplier_frozen <= 0;
+            multiplicand_frozen <= 0;
+        end else if (start & ready) begin
+            multiplier_frozen <= multiplier;
+            multiplicand_frozen <= multiplicand;
+        end
+    end
+
+    // Reset property to check that one cycle after rst, ready is asserted
+    property reset;
+        rst |=> ready;
+    endproperty
+
+    assert_reset: assert property(@(posedge clk) reset);
+
+    // Product property to check that 8 cycles after start product is correct and ready is asserted
+    property compute_product_check;
+        start & ready |=> ##8 (ready && (product == multiplier_frozen * multiplicand_frozen));
+    endproperty
+
+    assert_compute_product: assert property(@(posedge clk) disable iff (rst)compute_product_check);
+
+endmodule
+
+// Bind assertion module to DUV
+bind multiplier multiplier_sva_property_suite inst_multiplier_sva_property_suite(.*);

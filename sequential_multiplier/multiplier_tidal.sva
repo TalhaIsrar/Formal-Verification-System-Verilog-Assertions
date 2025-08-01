@@ -1,4 +1,4 @@
-module multiplier_property_suite(clk, rst, multiplier, multiplicand, product, ready, start);
+module multiplier_tidal_property_suite(clk, rst, multiplier, multiplicand, product, ready, start);
 
     // Inputs
     input clk;
@@ -57,4 +57,4 @@ module multiplier_property_suite(clk, rst, multiplier, multiplicand, product, re
 endmodule
 
 // Bind assertion module to DUV
-bind multiplier multiplier_property_suite inst_multiplier_property_suite(.*);
+bind multiplier multiplier_tidal_property_suite inst_multiplier_tidal_property_suite(.*);
