@@ -16,9 +16,9 @@ module multiplier_property_suite(clk, rst, multiplier, multiplicand, product, re
 `begin_tda(tda)
 
     // Sequence for testing operands
-    sequence define_operands;
-        (multiplicand == 13) && (multiplier == 11);
-    endsequence;
+    // sequence define_operands;
+    //    (multiplicand == 10) && (multiplier == 12);
+    // endsequence;
 
     // Timepoint definition
     sequence t_ready; await_o(t, 1, ready, 8); endsequence
@@ -34,7 +34,7 @@ module multiplier_property_suite(clk, rst, multiplier, multiplicand, product, re
         // Assumption list
         t ##0 start and
         t ##0 ready
-        and t ##0 define_operands
+        // and t ##0 define_operands
     implies
         t_ready ##0 ready and
         t_ready ##0 product == multiplier_t * multiplicand_t;
